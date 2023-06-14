@@ -1,3 +1,5 @@
-import { nanoid } from "nanoid"
+import { customAlphabet } from "nanoid"
 
-export const genId = () => nanoid()
+const nanoid = customAlphabet("0123456789abcdefghijklmnopqrstuvwxyz", 10)
+
+export const genId = () => nanoid(8)

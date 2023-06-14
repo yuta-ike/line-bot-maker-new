@@ -1,12 +1,14 @@
 import classNames from "classnames"
 import React, { useState } from "react"
-import { FiChevronLeft, FiPlus, FiShare } from "react-icons/fi"
+import { FiHome, FiShare } from "react-icons/fi"
 import Link from "next/link"
 import { useParams } from "next/navigation"
 
 import { useIsDragging } from "@/beta/services/move/isDragging"
 import Tooltip from "@/beta/view/atoms/Tooltop"
 import EditableText from "@/beta/view/component/EditableText"
+
+import { useSaveEditorSnapshot } from "./useSaveEditorSnapshot"
 
 export type EditorHeaderProps = {
   className?: string
@@ -18,6 +20,10 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
 
   // drag
   const isDragging = useIsDragging()
+
+  // save
+  const { trigger: saveEditorSnapshot, isMutating } =
+    useSaveEditorSnapshot(workId)
 
   const [title, setTitle] = useState("天気予報プログラム")
 
@@ -34,11 +40,11 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
     >
       <Tooltip label="作品ページ">
         <Link
-          href={`/work/${workId}`}
+          href="/dashboard"
           aria-label="作品ページに戻る"
           className="grid h-9 w-[38px] place-items-center rounded-lg border-[1.5px] border-slate-200 text-slate-600 transition hover:border-slate-400 active:translate-y-0.5"
         >
-          <FiChevronLeft strokeWidth={2.5} />
+          <FiHome strokeWidth={2.5} />
         </Link>
       </Tooltip>
       <h1 className="flex items-center space-x-2 place-self-center font-bold text-slate-600">
@@ -46,7 +52,14 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
         <EditableText value={title} onChange={setTitle} />
       </h1>
       <div className="flex items-center place-self-end">
-        <div className="mr-4 flex items-center">
+        <button
+          onClick={() => saveEditorSnapshot()}
+          disabled={isMutating}
+          className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
+        >
+          保存
+        </button>
+        {/* <div className="mr-4 flex items-center">
           {Array(3)
             .fill(null)
             .map((_, i) => (
@@ -61,7 +74,7 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
         <button className="flex shrink-0 items-center space-x-2 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5">
           <FiPlus strokeWidth={3} />
           招待
-        </button>
+        </button> */}
         <hr className="!mx-4 block h-9 w-[1px] bg-slate-200" />
         <Tooltip label="共有">
           <button

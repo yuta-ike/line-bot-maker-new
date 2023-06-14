@@ -1,20 +1,19 @@
 import classNames from "classnames"
+import Link from "next/link"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 
 export type TabProps<Id extends string> = {
-  tabs: {
+  tabs: readonly {
     id: Id
     label: string
   }[]
   selected: string
-  onSelect: (id: string) => void
   className?: string
 }
 
 const Tab = <Id extends string>({
   tabs,
   selected,
-  onSelect,
   className,
 }: TabProps<Id>): React.ReactElement => {
   const tabWidthRefs = useRef<number[]>([])
@@ -39,25 +38,25 @@ const Tab = <Id extends string>({
       {tabs.map(({ id, label }, i) => {
         const isActive = id === selected
         return (
-          <button
-            key={id}
-            ref={(elm) => {
-              if (elm == null) {
-                return
-              }
-              const rect = elm.getBoundingClientRect()
-              tabWidthRefs.current[i] = rect.x + rect.width / 2 - 20
-            }}
-            onClick={() => onSelect(id)}
-            className={classNames(
-              "p-2 text-sm font-bold transition",
-              isActive
-                ? "text-slate-600"
-                : "text-slate-400 hover:text-slate-600",
-            )}
-          >
-            {label}
-          </button>
+          <Link href={`/dashboard?filter=${id}`} key={id}>
+            <div
+              ref={(elm) => {
+                if (elm == null) {
+                  return
+                }
+                const rect = elm.getBoundingClientRect()
+                tabWidthRefs.current[i] = rect.x + rect.width / 2 - 20
+              }}
+              className={classNames(
+                "p-2 text-sm font-bold transition",
+                isActive
+                  ? "text-slate-600"
+                  : "text-slate-400 hover:text-slate-600",
+              )}
+            >
+              {label}
+            </div>
+          </Link>
         )
       })}
       <div

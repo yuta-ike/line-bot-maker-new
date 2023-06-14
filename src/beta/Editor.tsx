@@ -19,7 +19,7 @@ import EditorHeader from "./components/EditorHeader/EditorHeader"
 import { useIsOpenEmulator } from "./components/Ground/emulator"
 import SidePanel from "./components/SidePanel/SidePanel"
 
-const Editor: React.FC = () => {
+const Editor = () => {
   const nodeIds = useNodeIds()
   const edgeIds = useEdgeIds()
 
