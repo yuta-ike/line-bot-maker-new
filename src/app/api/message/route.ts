@@ -10,23 +10,26 @@ export const POST = async (req: NextRequest) => {
   const res = await getProgram(body.id)
 
   console.log(JSON.stringify(res))
-  if (res instanceof Error) {
-    return res
-  }
 
   const resumeId = body.resumeId
 
-  const answer = await runInterpreter(
-    input,
-    {
-      //@ts-ignore
-      nodes: res.program.nodes.map(({ node }) => node),
-      //@ts-ignore
-      edges: res.program.edges.map((edge) => edge),
-    },
-    { environment: "production" },
-    { startNodeId: resumeId },
-  )
+  try {
+    const answer = await runInterpreter(
+      input,
+      {
+        //@ts-ignore
+        nodes: res.program.nodes.map(({ node }) => node),
+        //@ts-ignore
+        edges: res.program.edges.map((edge) => edge),
+      },
+      { environment: "production" },
+      { startNodeId: resumeId },
+    )
 
-  return answer.result
+    console.log(JSON.stringify(answer))
+
+    return answer.result
+  } catch (e) {
+    return JSON.stringify(e)
+  }
 }
