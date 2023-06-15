@@ -64,9 +64,9 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
   return (
     <div className={classNames("flex flex-col bg-[#aec4ef]", className)}>
       <div className="flex shrink-0 items-center justify-start p-2">
-        <Tooltip label="履歴をクリア" side="bottom">
+        <Tooltip label="Clear history" side="bottom">
           <button
-            aria-label="履歴をクリア"
+            aria-label="Clear history"
             className="ml-auto p-1 text-slate-600 hover:text-slate-800"
             onClick={() => clearChat()}
           >
@@ -80,7 +80,7 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
       >
         {history.length === 0 && (
           <div className="m-4 rounded-lg bg-slate-500/60 p-4 text-xs text-white">
-            メッセージを送って、プログラムが正しく動くか確認してみよう
+            Send a message to verify if the program is functioning correctly.
           </div>
         )}
         {history.map(({ sender, body, createdAt, status }, i) =>
@@ -93,7 +93,7 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
               <div className="h-9 w-9 shrink-0 rounded-full bg-gradient-to-tr from-pink-400 via-orange-400 to-yellow-500 shadow-orange-200" />
               <div className="max-w-[70%]">
                 <div className="text-[10px] font-bold text-slate-700">
-                  ボットラボ
+                  Bot Labo
                 </div>
                 <p
                   className={classNames(
@@ -118,7 +118,7 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
             >
               <div className="flex max-w-[70%] items-end space-x-1">
                 <div className="shrink-0 text-[10px] text-slate-700">
-                  <div>既読</div>
+                  <div>Read</div>
                   <div>{format(createdAt, "H:mm")}</div>
                 </div>
                 <p className="mt-1 whitespace-pre-line rounded-2xl bg-[#8EE386] p-2 px-4 text-sm">
@@ -143,12 +143,12 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
         }}
       >
         <div className="flex w-full items-end">
-          <Tooltip label="画像">
+          <Tooltip label="Image">
             <div className="relative mr-2 shrink-0 cursor-pointer rounded p-2 hover:bg-slate-50">
               <FiImage className="text-slate-600" size={22} />
               <input
                 type="file"
-                aria-label="画像ファイルを送信する"
+                aria-label="Send image file"
                 accept="image/*"
                 className="absolute inset-0 opacity-0"
               />
@@ -169,10 +169,10 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
                 }
               }}
             />
-            <Tooltip label="スタンプ">
+            <Tooltip label="Sticker">
               <button
                 className="absolute bottom-1 right-1 rounded-full p-2 hover:bg-slate-200"
-                aria-label="スタンプを送信"
+                aria-label="Send Sticker"
                 type="button"
                 onClick={() => console.log("SSS")}
               >
@@ -180,10 +180,10 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
               </button>
             </Tooltip>
           </div>
-          <Tooltip label="送信">
+          <Tooltip label="Send">
             <button
               type="submit"
-              aria-label="送信する"
+              aria-label="Send"
               className="ml-2 shrink-0 rounded p-2 hover:bg-blue-50"
             >
               <FiSend className="text-blue-600" size={20} />
@@ -191,7 +191,7 @@ const Emulator: React.FC<EmulatorProps> = ({ className }) => {
           </Tooltip>
         </div>
         <p className="mr-[44px] mt-2 text-end text-xs text-slate-400">
-          <kbd>cmd</kbd> + <kbd>Enter</kbd> で送信
+          Send with <kbd>cmd</kbd> + <kbd>Enter</kbd>
         </p>
       </form>
     </div>

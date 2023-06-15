@@ -35,11 +35,11 @@ const NodeDetailPane: React.FC<NodeDetailPaneProps> = ({ nodeId, model }) => {
       <section>
         <div className="flex items-center space-x-4">
           <input
-            className="w-full text-lg font-bold border border-transparent rounded focus:border-slate-600/20 focus:outline-none"
+            className="w-full rounded border border-transparent text-lg font-bold focus:border-slate-600/20 focus:outline-none"
             value={`${model.meta.name}-1`}
             onChange={() => {}}
           />
-          <Tooltip label="編集">
+          <Tooltip label="Edit">
             <button className="shrink-0 text-slate-400">
               <FiEdit />
             </button>
@@ -47,18 +47,18 @@ const NodeDetailPane: React.FC<NodeDetailPaneProps> = ({ nodeId, model }) => {
         </div>
         <div className="mt-0.5 flex items-center text-xs text-slate-600">
           <span>{model.meta.name}</span>
-          <Tooltip label="他のブロックに変更">
+          <Tooltip label="Make changes to other blocks">
             <button
-              aria-label="他のブロックに変更"
-              className="p-1 ml-1 transition rounded hover:bg-black/10"
+              aria-label="Make changes to other blocks"
+              className="ml-1 rounded p-1 transition hover:bg-black/10"
             >
               <FiChevronDown />
             </button>
           </Tooltip>
         </div>
-        <div className="flex flex-col mt-4">
+        <div className="mt-4 flex flex-col">
           <div className="flex flex-wrap items-center">
-            <SocketLabel className="mr-4">入力</SocketLabel>
+            <SocketLabel className="mr-4">Input</SocketLabel>
             {model.sockets.input.map(({ id, label }) => (
               <SocketButton key={id} nodeId={nodeId} socketId={id}>
                 {label}
@@ -66,12 +66,12 @@ const NodeDetailPane: React.FC<NodeDetailPaneProps> = ({ nodeId, model }) => {
             ))}
             {model.sockets.input.length === 0 && (
               <div className="flex h-[22px] items-center text-xs font-bold text-slate-600">
-                なし
+                -
               </div>
             )}
           </div>
-          <div className="flex flex-wrap items-center mt-2">
-            <SocketLabel className="mr-4">出力</SocketLabel>
+          <div className="mt-2 flex flex-wrap items-center">
+            <SocketLabel className="mr-4">Output</SocketLabel>
             {model.sockets.output.map(({ id, label }) => (
               <SocketButton key={id} nodeId={nodeId} socketId={id}>
                 {label}
@@ -79,7 +79,7 @@ const NodeDetailPane: React.FC<NodeDetailPaneProps> = ({ nodeId, model }) => {
             ))}
             {model.sockets.output.length === 0 && (
               <div className="flex h-[22px] items-center text-xs font-bold text-slate-600">
-                なし
+                -
               </div>
             )}
           </div>
@@ -88,16 +88,16 @@ const NodeDetailPane: React.FC<NodeDetailPaneProps> = ({ nodeId, model }) => {
       <Hr />
 
       {/* Layer */}
-      <section>
+      {/* <section>
         <Heading>レイヤー</Heading>
-        <div className="flex items-center px-3 py-1 mt-2 border rounded w-max border-slate-200">
+        <div className="mt-2 flex w-max items-center rounded border border-slate-200 px-3 py-1">
           <div className="text-xs">レイヤー1</div>
-          <div aria-label="他のブロックに変更" className="p-1 ml-2">
+          <div aria-label="他のブロックに変更" className="ml-2 p-1">
             <FiChevronDown strokeWidth={1} />
           </div>
         </div>
       </section>
-      <Hr />
+      <Hr /> */}
 
       {/* Extra Props */}
       {0 < (model.extraProps?.length ?? 0) && (
@@ -117,21 +117,21 @@ const NodeDetailPane: React.FC<NodeDetailPaneProps> = ({ nodeId, model }) => {
 
       {/* Action Buttons */}
       <section>
-        <Heading>アクション</Heading>
-        <div className="flex items-center mt-3 space-x-2">
-          <Tooltip label="複製">
+        <Heading>Operation</Heading>
+        <div className="mt-3 flex items-center space-x-2">
+          <Tooltip label="Duplicate">
             <button
-              className="p-2 transition border rounded border-slate-400 text-slate-600 hover:bg-slate-100"
-              aria-label="複製"
+              className="rounded border border-slate-400 p-2 text-slate-600 transition hover:bg-slate-100"
+              aria-label="Duplicate"
               onClick={duplicateNodes}
             >
               <FiCopy />
             </button>
           </Tooltip>
-          <Tooltip label="削除">
+          <Tooltip label="Delete">
             <button
-              className="p-2 text-red-600 transition border border-red-400 rounded hover:bg-red-100"
-              aria-label="削除"
+              className="rounded border border-red-400 p-2 text-red-600 transition hover:bg-red-100"
+              aria-label="Delete"
               onClick={removeNodes}
             >
               <FiTrash2 />
@@ -143,9 +143,9 @@ const NodeDetailPane: React.FC<NodeDetailPaneProps> = ({ nodeId, model }) => {
 
       {/* Description */}
       <section>
-        <Heading>説明</Heading>
+        <Heading>Explanation</Heading>
         <p className="mt-2 text-xs leading-relaxed text-slate-600">
-          入力と比較先が一致する場合にtrue、一致しない場合にfalseに移動します。
+          {model.meta.description}
         </p>
       </section>
     </div>

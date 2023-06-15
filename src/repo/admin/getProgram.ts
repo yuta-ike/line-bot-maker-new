@@ -1,3 +1,5 @@
+import { BlockEdge } from "@/beta/services/selector/blockEdge"
+import { BlockNode } from "@/beta/services/selector/blockNode"
 import { DATABASE_ID, collections } from "@/lib/appwrite/constants"
 import { adminDatabase } from "@/lib/appwriteAdmin/core"
 
@@ -22,6 +24,9 @@ export const getProgram = async (id: string) => {
 
   return {
     id: doc.$id,
-    program: _doc["program"] as string,
+    program: JSON.parse(_doc["program"]) as {
+      nodes: BlockNode[]
+      edges: BlockEdge[]
+    },
   }
 }

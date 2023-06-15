@@ -10,6 +10,6 @@
     "**/node_modules/**": true
   },
   "search.exclude": {
-    "./.next/**": true
+    "**/.next/**": true
   }
 }

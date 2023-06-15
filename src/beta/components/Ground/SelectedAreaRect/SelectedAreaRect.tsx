@@ -39,33 +39,33 @@ const SelectedAreaRect: React.FC = () => {
       <div className="pointer-events-auto absolute left-[calc(100%+8px)] top-0 flex w-max flex-col items-start space-y-2">
         {2 <= count && (
           <div className="ml-1 rounded-full bg-gray-400 px-2 py-0.5 text-xs text-white">
-            {count}件
+            {count} items
           </div>
         )}
         {inputNodeId != null && (
-          <Tooltip label="実行" side="right">
+          <Tooltip label="Run" side="right">
             <button
               className="relative rounded p-1.5 transition hover:bg-gray-400/20"
-              aria-label="実行"
+              aria-label="Run"
               onClick={() => runInterpreter("debugger", inputNodeId)}
             >
               <FiPlay />
             </button>
           </Tooltip>
         )}
-        <Tooltip label="削除" side="right">
+        <Tooltip label="Delete" side="right">
           <button
             className="relative rounded p-1.5 transition hover:bg-gray-400/20"
-            aria-label="削除"
+            aria-label="Delete"
             onClick={removeNodes}
           >
             <FiTrash2 />
           </button>
         </Tooltip>
-        <Tooltip label="複製" side="right">
+        <Tooltip label="Dupicate" side="right">
           <button
             className="relative rounded p-1.5 transition hover:bg-gray-400/20"
-            aria-label="複製"
+            aria-label="Dupicate"
             onClick={duplicateNodes}
           >
             <FiCopy />
@@ -76,7 +76,7 @@ const SelectedAreaRect: React.FC = () => {
             {/* <Tooltip label="整列" side="right"> */}
             <button
               className="relative rounded p-1.5 transition hover:bg-gray-400/20"
-              aria-label="整列"
+              aria-label="Align"
               onClick={() => {}}
             >
               <FiAlignLeft />

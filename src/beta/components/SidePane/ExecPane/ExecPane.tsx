@@ -10,7 +10,7 @@ export type ExecPaneProps = {
 
 const ExecPane: React.FC<ExecPaneProps> = ({ className }) => {
   return (
-    <FoldablePaneCard title="デバッグ" className={classNames("", className)}>
+    <FoldablePaneCard title="Debug" className={classNames("", className)}>
       <ExecSection />
     </FoldablePaneCard>
   )

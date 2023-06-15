@@ -18,13 +18,13 @@ const SpawnPane: React.FC<SpawnPaneProps> = ({ className }) => {
 
   return (
     <FoldablePaneCard
-      title="ブロック"
+      title="Block"
       className={classNames("", className)}
       ref={paneRef}
       // NOTE: ドラッグ中はoverflow:hiddenを解除する
       disabledOverflowHidden={isDragging}
     >
-      <ul className="flex flex-col w-full space-y-2">
+      <ul className="flex w-full flex-col space-y-2">
         {NODE_MODELS.map((nodeModel) => (
           <li key={nodeModel.id} className="w-full">
             <SidePaneItem nodeModel={nodeModel} paneRect={paneRect} />

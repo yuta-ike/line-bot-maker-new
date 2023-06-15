@@ -19,7 +19,7 @@ const MetaDataTable = ({ program, className }: MetaDataTableProps) => {
       )}
     >
       <div className="flex items-center justify-between p-2">
-        <dt className="text-slate-500">作成日</dt>
+        <dt className="text-slate-500">Create Date</dt>
         <TextWithSkelton as="dd" className="min-w-[64px]">
           {program == null
             ? null
@@ -27,7 +27,7 @@ const MetaDataTable = ({ program, className }: MetaDataTableProps) => {
         </TextWithSkelton>
       </div>
       <div className="flex items-center justify-between p-2">
-        <dt className="text-slate-500">最終更新日</dt>
+        <dt className="text-slate-500">Last Update Date</dt>
         <TextWithSkelton as="dd" className="min-w-[64px]">
           {program == null
             ? null

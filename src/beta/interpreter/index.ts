@@ -165,14 +165,14 @@ class Interpreter {
     if (startNode == null) {
       throw new InterpreterError(
         "START_NODE_NOT_FOUND",
-        "入力ノードが見つかりません",
+        "The input node could not be found.",
       )
     }
 
     if (2 <= startNodes.length) {
       throw new InterpreterError(
         "MULTI_START_NODES",
-        "入力ノードが複数あります",
+        "There are multiple input nodes.",
       )
     }
     return startNode

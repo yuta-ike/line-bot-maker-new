@@ -53,7 +53,7 @@ const MockField = ({ id }: MockFieldProps) => {
       ) : (
         <TextareaAutosize
           minRows={1}
-          placeholder="モック値を入力してください"
+          placeholder="Fill mock value"
           value={mockValue?.value ?? ""}
           onChange={(e) =>
             setMockValue((prev) => ({ ...prev, value: e.target.value }))

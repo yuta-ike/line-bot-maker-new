@@ -6,9 +6,9 @@ import { useSearchParams } from "next/navigation"
 import Tab from "@/beta/view/component/Tab"
 
 const TABS = [
-  { id: "all", label: "すべて" },
-  { id: "public", label: "公開中" },
-  { id: "draft", label: "下書き" },
+  { id: "all", label: "All" },
+  { id: "public", label: "Public" },
+  { id: "draft", label: "Draft" },
 ] as const
 
 export type TabId = (typeof TABS)[number]["id"]

@@ -11,7 +11,7 @@ const DashboardPage = () => {
       <div className="w-full border-b border-slate-200 bg-white pt-8">
         <div className="mx-auto w-container max-w-full px-8">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-slate-600">わたしの作品</h1>
+            <h1 className="text-2xl font-bold text-slate-600">My works</h1>
             <CreateButton />
           </div>
           <DashboardTab className="mt-6" />
@@ -31,5 +31,5 @@ const DashboardPage = () => {
 export default DashboardPage
 
 export const metadata: Metadata = {
-  title: "ボットラボ",
+  title: "Bot Labo",
 }

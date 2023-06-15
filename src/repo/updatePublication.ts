@@ -18,5 +18,5 @@ export const updatePublication = async ({
     is_public: isPublic,
   })
 
-  toast(isPublic ? "公開しました" : "非公開にしました", {})
+  toast(isPublic ? "I have made it public" : "I have made it draft", {})
 }

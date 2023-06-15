@@ -8,7 +8,6 @@ import Tooltip from "@/beta/view/atoms/Tooltop"
 import { useIsOpenEmulator, useSetIsOpenEmulator } from "../Ground/emulator"
 
 import Emulator from "./Emulator/Emulator"
-import Testcase from "./Testcase/Testcase"
 import Debug from "./Debug/Debug"
 
 const TABS = [
@@ -20,10 +19,10 @@ const TABS = [
     id: "debug" as const,
     label: "Debug",
   },
-  {
-    id: "testcase" as const,
-    label: "Test cases",
-  },
+  // {
+  //   id: "testcase" as const,
+  //   label: "Test cases",
+  // },
 ] as const
 
 type Tab = (typeof TABS)[number]["id"]
@@ -86,10 +85,10 @@ const SidePanel = () => {
         ref={panelRef}
       >
         <Tabs.List className="group flex w-full min-w-0 max-w-full shrink-0 items-center overflow-x-scroll border-b border-slate-200 bg-white p-2">
-          <Tooltip label="とじる">
+          <Tooltip label="Close">
             <button
               className="rounded p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-800"
-              aria-label="サイドパネルを閉じる"
+              aria-label="Close side panel"
               onClick={() => setIsOpenEmulator(false)}
             >
               <FiChevronsRight />
@@ -111,9 +110,9 @@ const SidePanel = () => {
         <Tabs.Content value={TABS[1].id}>
           <Debug />
         </Tabs.Content>
-        <Tabs.Content value={TABS[2].id}>
+        {/* <Tabs.Content value={TABS[2].id}>
           <Testcase />
-        </Tabs.Content>
+        </Tabs.Content> */}
         {/* Resize handler */}
         <div
           ref={resizeHandlerRef}

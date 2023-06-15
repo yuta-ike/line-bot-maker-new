@@ -19,7 +19,7 @@ const PublicationStatusBadge = ({
       )}
       style={{ textShadow: "0px 0px 2px rgb(0 0 0 / 0.2)" }}
     >
-      {isPublic ? "公開中" : "下書き"}
+      {isPublic ? "Public" : "Draft"}
     </div>
   )
 }

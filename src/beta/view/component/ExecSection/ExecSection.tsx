@@ -48,39 +48,45 @@ const ExecSection: React.FC<ExecPaneProps> = ({ className }) => {
         value={value}
         rows={3}
         onChange={(e) => setValue(e.target.value)}
-        placeholder="入力"
+        placeholder="Input"
       />
       <div className="flex flex-col gap-y-4">
-        <div className="text-sm text-slate-600">モックの設定</div>
+        <div className="text-sm text-slate-600">Mock Settings</div>
         {mockableNodeIds.map((id) => {
           return <MockField key={id} id={id} />
         })}
       </div>
       <hr className="w-[calc(100%+32px)] -translate-x-4" />
-      <section>
-        <h3 className="text-sm">実行結果</h3>
-        <div
-          className={classNames(
-            "mt-2 min-h-[3lh] w-full resize-none rounded border p-2 text-sm focus:outline-none",
-            data?.result.type === "failure"
-              ? "border-red-600 bg-red-50 text-red-600"
-              : "border-slate-200 bg-slate-50",
-          )}
-        >
-          {data == null ? null : data.result.type === "success" ? (
-            data.result.data.length === 0 ? (
-              <span className="text-slate-400">{`< 空白 >`}</span>
-            ) : (
-              data.result.data
-            )
-          ) : (
-            data.result.error.message
-          )}
-        </div>
-      </section>
+      {data != null && data.result.type === "success" && (
+        <>
+          <section>
+            <h3 className="text-sm">Result</h3>
+            <div
+              className={classNames(
+                "mt-2 min-h-[3lh] w-full resize-none rounded border p-2 text-sm focus:outline-none",
+                // @ts-ignore
+                data?.result.type === "failure"
+                  ? "border-red-600 bg-red-50 text-red-600"
+                  : "border-slate-200 bg-slate-50",
+              )}
+            >
+              {data == null ? null : data.result.type === "success" ? (
+                data.result.data.length === 0 ? (
+                  <span className="text-slate-400">{`< Empty >`}</span>
+                ) : (
+                  data.result.data
+                )
+              ) : (
+                // @ts-ignore
+                data.result.error.message
+              )}
+            </div>
+          </section>
+        </>
+      )}
       {data != null && 0 < data.stacktrace.length && (
         <section>
-          <h3 className="mb-2 text-sm">スタックトレース</h3>
+          <h3 className="mb-2 text-sm">Result - Stacktrace</h3>
           <ol className="flex w-full flex-col">
             {data?.stacktrace.map((item, i) => (
               <li
@@ -97,10 +103,10 @@ const ExecSection: React.FC<ExecPaneProps> = ({ className }) => {
                 >
                   <div className="flex w-full items-center justify-between text-slate-600">
                     {i + 1}. {item.node.model.meta.name}
-                    <Tooltip label="フォーカスする">
+                    <Tooltip label="Focus">
                       <button
                         onClick={() => focus(item.node.id)}
-                        aria-label="フォーカスする"
+                        aria-label="Focus"
                       >
                         <FiCrosshair className="text-slate-400 transition hover:text-slate-600 active:translate-y-[1px]" />
                       </button>

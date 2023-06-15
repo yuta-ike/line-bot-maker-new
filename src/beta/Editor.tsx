@@ -30,9 +30,6 @@ const Editor = ({ initProgram }: EditorProps) => {
 
   const [isOpenEmulator] = useIsOpenEmulator()
 
-  console.log("===================")
-  console.log(initProgram)
-
   return (
     <>
       <Ground

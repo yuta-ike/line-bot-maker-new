@@ -9,9 +9,7 @@ export type InstructionSectionProps = {
 const InstructionSection = ({ className }: InstructionSectionProps) => {
   return (
     <SectionCard className={className}>
-      <h2 className="text-xl font-bold leading-none text-slate-600">
-        サンプルの会話
-      </h2>
+      <h2 className="text-xl font-bold leading-none text-slate-600">Example</h2>
       <p className="mt-4 text-slate-600">
         1. 天気予報を知りたい時は、「天気を教えて」と送ってください。
         <br />

@@ -15,5 +15,5 @@ export const saveProgramTitle = async ({ id, title }: SaveProgramTitleArgs) => {
     title,
   })
 
-  toast("保存しました", {})
+  toast("Saved", {})
 }

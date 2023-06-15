@@ -16,6 +16,7 @@ const Tab = <Id extends string>({
   selected,
   className,
 }: TabProps<Id>): React.ReactElement => {
+  const tabCenterRefs = useRef<number[]>([])
   const tabWidthRefs = useRef<number[]>([])
   const selectedIndex = useMemo(() => {
     const index = tabs.findIndex(({ id }) => id === selected)
@@ -32,33 +33,34 @@ const Tab = <Id extends string>({
   }, [])
 
   return (
-    <div
-      className={classNames("relative flex items-center space-x-2", className)}
-    >
-      {tabs.map(({ id, label }, i) => {
-        const isActive = id === selected
-        return (
-          <Link href={`/dashboard?filter=${id}`} key={id}>
-            <div
-              ref={(elm) => {
-                if (elm == null) {
-                  return
-                }
-                const rect = elm.getBoundingClientRect()
-                tabWidthRefs.current[i] = rect.x + rect.width / 2 - 20
-              }}
-              className={classNames(
-                "p-2 text-sm font-bold transition",
-                isActive
-                  ? "text-slate-600"
-                  : "text-slate-400 hover:text-slate-600",
-              )}
-            >
-              {label}
-            </div>
-          </Link>
-        )
-      })}
+    <div className={classNames("relative", className)}>
+      <div className="flex items-center space-x-2">
+        {tabs.map(({ id, label }, i) => {
+          const isActive = id === selected
+          return (
+            <Link href={`/dashboard?filter=${id}`} key={id}>
+              <div
+                ref={(elm) => {
+                  if (elm == null) {
+                    return
+                  }
+                  const rect = elm.getBoundingClientRect()
+                  tabCenterRefs.current[i] = rect.x + rect.width / 2
+                  tabWidthRefs.current[i] = rect.width
+                }}
+                className={classNames(
+                  "p-2 text-sm font-bold transition",
+                  isActive
+                    ? "text-slate-600"
+                    : "text-slate-400 hover:text-slate-600",
+                )}
+              >
+                {label}
+              </div>
+            </Link>
+          )
+        })}
+      </div>
       <div
         className={classNames(
           "absolute bottom-0 h-[3px] w-[40px] translate-y-1/2 rounded-full bg-slate-600",
@@ -68,8 +70,14 @@ const Tab = <Id extends string>({
           left:
             selectedIndex == null
               ? undefined
-              : (tabWidthRefs.current[selectedIndex] ?? 0) -
-                (tabWidthRefs.current[0] ?? 0),
+              : (tabCenterRefs.current[selectedIndex] ?? 0) -
+                (tabCenterRefs.current[0] ?? 0) +
+                (tabWidthRefs.current[0] ?? 0) / 2 -
+                (tabWidthRefs.current[selectedIndex] ?? 0) / 2,
+          width:
+            selectedIndex == null
+              ? undefined
+              : tabWidthRefs.current[selectedIndex] ?? 0,
         }}
       />
     </div>

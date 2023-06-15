@@ -13,9 +13,11 @@ const Header: React.FC = () => {
         <AppLogo />
       </Link>
       <div className="ml-12 flex items-center space-x-8">
-        <MenuItem href="/dashboard">わたしの作品</MenuItem>
-        <div className="text-sm font-bold text-slate-400">みんなの作品 🚧</div>
-        <div className="text-sm font-bold text-slate-400">拡張ブロック 🚧</div>
+        <MenuItem href="/dashboard">My works</MenuItem>
+        <div className="text-sm font-bold text-slate-400">Explore</div>
+        <div className="text-sm font-bold text-slate-400">
+          Extension Blocks 🚧
+        </div>
       </div>
       <UserBox className="ml-auto" />
     </header>

@@ -28,7 +28,8 @@ const ExtraPropForm: React.FC<ExtraPropFormProps> = ({ nodeId, extraProp }) => {
           onChange={(e) => updateExtraProp(e.target.value)}
           placeholder={extraProp.placeholder}
         />
-        <div className="flex flex-wrap h-0 overflow-hidden focus-within:h-auto peer-focus:h-auto">
+        <div className="flex h-0 flex-wrap overflow-hidden focus-within:h-auto peer-focus:h-auto">
+          <div className="w-full pb-1 text-sm text-slate-600">Variables</div>
           {[...extraProp.localMagicVariables, ...GLOBAL_MAGIC_VARIABLES].map(
             ({ type, label }) => (
               <button

@@ -43,21 +43,21 @@ export type InterpreterContext = {
 
 export const GLOBAL_MAGIC_VARIABLES: MagicVariable[] = [
   {
+    type: "LBM:ORIGINAL_INPUT",
+    label: "User Input",
+  },
+  {
     type: "TIME:TODAY",
-    label: "日付",
+    label: "Date",
   },
   {
     type: "TIME:NOW",
-    label: "日時",
+    label: "Time",
   },
-  {
-    type: "LBM:DEVELOPER_DISPLAY_NAME",
-    label: "開発者の表示名",
-  },
-  {
-    type: "LBM:ORIGINAL_INPUT",
-    label: "ユーザーの入力",
-  },
+  // {
+  //   type: "LBM:DEVELOPER_DISPLAY_NAME",
+  //   label: "Developer Name",
+  // },
   // { type: "LBM_META:APP_VERSION", label: "アプリのバージョン" },
   // { type: "LINE:DISPLAY_NAME", label: "ユーザー名" },
   // { type: "LINE:STATUS_MESSAGE", label: "ステータスメッセージ" },

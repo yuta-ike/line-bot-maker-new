@@ -24,5 +24,5 @@ export const saveEditorSnapshot = async ({
     created_by: user.$id,
   })
 
-  toast("保存しました", {})
+  toast("Saved", {})
 }

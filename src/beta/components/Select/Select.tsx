@@ -29,7 +29,7 @@ const Select = <Id extends string>({
         id={id}
       >
         <RadixSelect.Value
-          placeholder="モック値を選択してください"
+          placeholder="Please select a mock value"
           className="w-full placeholder:text-slate-400"
         />
         <RadixSelect.Icon className="text-violet11">

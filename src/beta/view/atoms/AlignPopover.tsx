@@ -18,7 +18,7 @@ const AlignPopover: React.FC<PopoverProps> = ({ children, onAlign }) => (
     <RaPopover.Trigger asChild>{children}</RaPopover.Trigger>
     <RaPopover.Portal>
       <RaPopover.Content sideOffset={4} side="bottom">
-        <div className="flex items-center px-2 py-1 space-x-2 bg-white rounded-full shadow-popper">
+        <div className="flex items-center space-x-2 rounded-full bg-white px-2 py-1 shadow-popper">
           {ALIGNS.map(({ id, label, Icon }) => (
             <Tooltip label={id} key={label}>
               <button
@@ -31,11 +31,11 @@ const AlignPopover: React.FC<PopoverProps> = ({ children, onAlign }) => (
             </Tooltip>
           ))}
           <div className="h-[20px] w-[1px] bg-slate-200" />
-          <Tooltip label="閉じる">
+          <Tooltip label="Close">
             <RaPopover.Close aria-label="Close" asChild>
               <button
                 className="relative rounded p-1.5 transition hover:bg-gray-400/20"
-                aria-label="閉じる"
+                aria-label="Close"
               >
                 <FiX />
               </button>

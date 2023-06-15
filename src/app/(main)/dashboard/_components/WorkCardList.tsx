@@ -41,13 +41,7 @@ const WorkCardList = ({ className }: WorkCardListProps) => {
         <div className="text-slate-400">
           <FiCompass size={64} />
         </div>
-        <div className="text-slate-600">
-          {programs?.length === 0
-            ? "まだプログラムは投稿されていません"
-            : `${
-                selected === "draft" ? "下書き中" : "公開済み"
-              }のプログラムはありません`}
-        </div>
+        <div className="text-slate-600">No program posted yet.</div>
       </div>
     )
   }

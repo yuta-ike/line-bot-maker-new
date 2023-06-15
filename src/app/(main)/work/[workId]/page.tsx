@@ -10,7 +10,6 @@ import TextWithSkelton from "@/components/TextWithSkelton"
 
 import CreatorChip, { CreatorChipSkelton } from "./_component/CreatorChip"
 import MetaDataTable from "./_component/MetaDataTable"
-import StatisticsSection from "./_sections/StatisticsSection"
 import InstructionSection from "./_sections/InstructionSection"
 import ExampleSection from "./_sections/ExampleSection"
 
@@ -30,22 +29,28 @@ const WorkDetailPage = ({ params: { workId } }: WorkDetailPageProps) => {
       <div className="relative w-full border-b border-slate-200 bg-white pb-20 pt-8">
         <div className="mx-auto w-container max-w-full px-8">
           <div className="flex items-center text-2xl font-bold text-slate-600">
-            <TextWithSkelton as="h2" className="mr-4 min-w-[200px]">
+            <TextWithSkelton as="h2" className="mr-4 min-w-[100px]">
               {program?.title}
             </TextWithSkelton>
 
             {program?.isPublic === true && (
               <div className="flex shrink-0 items-center space-x-2 rounded bg-orange-500 px-2 py-0.5 text-sm font-bold text-white">
-                <div>公開中</div>
+                <div>Public</div>
               </div>
             )}
             <div className="ml-auto flex shrink-0 items-center space-x-4">
               <Link
+                href={`/chat/${workId}`}
+                className="flex items-center space-x-2 rounded-lg border-2 border-slate-600 px-8 py-3 text-sm font-bold text-slate-600 transition hover:bg-slate-200 active:translate-y-0.5"
+              >
+                <div>Try</div>
+              </Link>
+              <Link
                 href={`/work/${workId}/edit`}
-                className="flex items-center space-x-2 rounded-lg bg-slate-700 px-12 py-3 text-sm font-bold text-white transition hover:bg-slate-600 hover:shadow-lg active:translate-y-0.5 active:shadow-none"
+                className="flex items-center space-x-2 rounded-lg border-2 border-slate-700 bg-slate-700 px-12 py-3 text-sm font-bold text-white transition hover:border-slate-600 hover:bg-slate-600 hover:shadow-lg active:translate-y-0.5 active:shadow-none"
               >
                 <FiEdit3 />
-                <div>編集する</div>
+                <div>Edit</div>
               </Link>
             </div>
           </div>
@@ -55,7 +60,7 @@ const WorkDetailPage = ({ params: { workId } }: WorkDetailPageProps) => {
                 <TextWithSkelton>{program?.description}</TextWithSkelton>
                 <hr className="mt-4" />
                 <h2 className="mt-4 text-sm font-bold text-slate-500">
-                  クリエイター
+                  Creator
                 </h2>
                 <div className="mt-2 flex items-center space-x-2">
                   {program == null ? (
@@ -88,7 +93,7 @@ const WorkDetailPage = ({ params: { workId } }: WorkDetailPageProps) => {
       </div>
 
       <div className="mx-auto mt-10 flex w-container max-w-full flex-col items-center gap-y-8 px-8 pb-8">
-        <StatisticsSection />
+        {/* <StatisticsSection /> */}
         <InstructionSection />
         <ExampleSection />
       </div>

@@ -1,5 +1,5 @@
 import classNames from "classnames"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { FiHome, FiShare } from "react-icons/fi"
 import Link from "next/link"
 import { useParams } from "next/navigation"
@@ -33,11 +33,16 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
   const { trigger: saveEditorSnapshot, isMutating } =
     useSaveEditorSnapshot(workId)
 
+  const originalTitleRef = useRef(initTitle)
   const [title, setTitle] = useState(initTitle)
   const [isPublic, setPublic] = useState(initIsPublic)
 
-  const handleSubmit = () => {
-    saveProgramTitle({ id: workId, title })
+  const handleSubmit = async () => {
+    if (originalTitleRef.current === title) {
+      return
+    }
+    await saveProgramTitle({ id: workId, title })
+    originalTitleRef.current = title
   }
 
   const { trigger: updatePublication, isMutating: isMutatingPublication } =
@@ -49,7 +54,7 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
       setPublic(false)
     } else {
       const ok = window.confirm(
-        "公開すると、作品ページから他の人が見れるようになります。公開しますか？",
+        "Once published, the work page will be accessible to other people. Do you want to proceed with the publication?",
       )
       if (ok) {
         await updatePublication(true)
@@ -94,7 +99,7 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
           disabled={isMutating}
           className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
         >
-          保存
+          save
         </button>
         {/* <div className="mr-4 flex items-center">
           {Array(3)
@@ -113,10 +118,10 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
           招待
         </button> */}
         <hr className="!mx-4 block h-9 w-[1px] bg-slate-200" />
-        <Tooltip label="共有">
+        <Tooltip label="Share">
           <button
             className="mr-2 grid h-9 w-[38px] shrink-0 place-items-center rounded-lg bg-slate-500 text-white transition hover:bg-slate-700 hover:shadow active:translate-y-0.5 active:shadow-none"
-            aria-label="共有する"
+            aria-label="Share"
           >
             <FiShare strokeWidth={2.5} />
           </button>
@@ -126,7 +131,7 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
           disabled={isMutatingPublication}
           className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
         >
-          {isPublic ? "公開停止" : "公開"}
+          {isPublic ? "Make it private" : "Publish"}
         </button>
       </div>
     </header>

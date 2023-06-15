@@ -23,12 +23,12 @@ const DetailPane: React.FC<DetailPaneProps> = ({ className }) => {
     if (selectedElement.length === 0) {
       return (
         <div>
-          <input
+          {/* <input
             className="w-full text-lg font-bold border border-transparent rounded focus:border-slate-600/20 focus:outline-none"
             value="天気予報プログラム"
             onChange={() => {}}
           />
-          <hr className="my-4 w-[calc(100%+32px)] -translate-x-4" />
+          <hr className="my-4 w-[calc(100%+32px)] -translate-x-4" /> */}
         </div>
       )
     }

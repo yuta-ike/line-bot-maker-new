@@ -59,9 +59,9 @@ export type NodeModel = {
 export const StandardInputNodeModel = {
   id: "standard-input",
   meta: {
-    name: "入力",
+    name: "Input",
     description:
-      "ユーザーの入力を受け付けるブロックです。入力があった場合、inputに移動します。",
+      'This is a block that accepts user input. If there is an input, it will transition to the "input" block.',
   },
   body: {
     color: "#BBB4A8",
@@ -82,7 +82,7 @@ export const StandardInputNodeModel = {
           child: {
             type: "text",
             typo: "title",
-            text: "入力",
+            text: "Input",
           },
         },
       ],
@@ -104,9 +104,9 @@ export const StandardInputNodeModel = {
 export const StringEqualNodeModel: NodeModel = {
   id: "string-equal",
   meta: {
-    name: "文字列比較",
+    name: "String Equality",
     description:
-      "文字列の比較を行うブロックです。入力と比較先が一致する場合にtrue、一致しない場合にfalseに移動します。",
+      'This is a block that performs string comparison. If the input matches the comparison target, it transitions to "true"; if there is no match, it transitions to "false".',
   },
   body: {
     color: "#7BABE4",
@@ -128,19 +128,19 @@ export const StringEqualNodeModel: NodeModel = {
             type: "flex-row",
             children: [
               {
-                fillType: "grow",
-                child: {
-                  type: "input",
-                  id: "target",
-                  placeholder: "こんにちは",
-                },
-              },
-              {
                 fillType: "no-shrik",
                 child: {
                   type: "text",
                   typo: "body",
-                  text: "と同じ",
+                  text: "Same as",
+                },
+              },
+              {
+                fillType: "grow",
+                child: {
+                  type: "input",
+                  id: "target",
+                  placeholder: "hello",
                 },
               },
             ],
@@ -174,12 +174,12 @@ export const StringEqualNodeModel: NodeModel = {
     {
       id: "target",
       type: "string",
-      label: "比較先",
-      placeholder: "こんにちは",
+      label: "target",
+      placeholder: "hello",
       localMagicVariables: [
         {
           type: "LOCAL:INPUT",
-          label: "ノードの入力",
+          label: "Node Input",
         },
       ],
     },
@@ -189,9 +189,9 @@ export const StringEqualNodeModel: NodeModel = {
 export const StringIncludesNodeModel: NodeModel = {
   id: "string-includes",
   meta: {
-    name: "文字列比較（含む）",
+    name: "String Includes",
     description:
-      "文字列が含まれるかを判定するブロックです。比較先の文字列が入力に含まれる場合に true、そうでない場合に false を返します。",
+      "This is a block that determines whether a string is present. If the comparison target string is included in the input, it returns true; otherwise, it returns false.",
   },
   body: {
     color: "#7BABE4",
@@ -213,19 +213,19 @@ export const StringIncludesNodeModel: NodeModel = {
             type: "flex-row",
             children: [
               {
-                fillType: "grow",
-                child: {
-                  type: "input",
-                  id: "target",
-                  placeholder: "こんにちは",
-                },
-              },
-              {
                 fillType: "no-shrik",
                 child: {
                   type: "text",
                   typo: "body",
-                  text: "を含む",
+                  text: "includes",
+                },
+              },
+              {
+                fillType: "grow",
+                child: {
+                  type: "input",
+                  id: "target",
+                  placeholder: "hello",
                 },
               },
             ],
@@ -259,12 +259,12 @@ export const StringIncludesNodeModel: NodeModel = {
     {
       id: "target",
       type: "string",
-      label: "比較先",
-      placeholder: "こんにちは",
+      label: "target",
+      placeholder: "hello",
       localMagicVariables: [
         {
           type: "LOCAL:INPUT",
-          label: "ノードの入力",
+          label: "Node Input",
         },
       ],
     },
@@ -274,9 +274,9 @@ export const StringIncludesNodeModel: NodeModel = {
 export const RandomNodeModel: NodeModel = {
   id: "random",
   meta: {
-    name: "ランダム",
+    name: "Random",
     description:
-      "A と B をランダムに選択するブロックです。50% の確率で A を、50% の確率で B を選択します。",
+      "This is a block that randomly selects between A and B. It has a 50% chance of choosing A and a 50% chance of choosing B.",
   },
   body: {
     color: "#f36c6c",
@@ -284,7 +284,7 @@ export const RandomNodeModel: NodeModel = {
     struct: {
       type: "icon",
       iconType: "text",
-      text: "ランダム",
+      text: "Random",
     },
   },
   sockets: {
@@ -316,8 +316,8 @@ export const RandomNodeModel: NodeModel = {
 export const AskTextNodeModel: NodeModel = {
   id: "ask-text",
   meta: {
-    name: "ユーザーに聞く",
-    description: "ユーザーに質問メッセージを送ります",
+    name: "Ask User",
+    description: "Sending a question message to the user.",
   },
   body: {
     color: "#7BABE4",
@@ -343,7 +343,7 @@ export const AskTextNodeModel: NodeModel = {
                 child: {
                   type: "input",
                   id: "question",
-                  placeholder: "質問内容",
+                  placeholder: "Question",
                 },
               },
             ],
@@ -364,7 +364,7 @@ export const AskTextNodeModel: NodeModel = {
       {
         id: "output",
         type: "string",
-        label: "回答",
+        label: "Answer",
       },
     ],
   },
@@ -372,12 +372,12 @@ export const AskTextNodeModel: NodeModel = {
     {
       id: "question",
       type: "string",
-      label: "質問内容",
-      placeholder: "質問内容",
+      label: "Question",
+      placeholder: "Question",
       localMagicVariables: [
         {
           type: "LOCAL:INPUT",
-          label: "ノードの入力",
+          label: "Node Input",
         },
       ],
     },
@@ -391,9 +391,9 @@ export const AskTextNodeModel: NodeModel = {
 export const TextOutputNodeModel: NodeModel = {
   id: "text-output",
   meta: {
-    name: "テキスト出力",
+    name: "Text Output",
     description:
-      "テキストを出力するノードです。outputに送られた内容が出力されます。",
+      "This is a node that outputs text. The content sent to the output will be displayed.",
   },
   body: {
     color: "#94B484",
@@ -419,7 +419,7 @@ export const TextOutputNodeModel: NodeModel = {
                 child: {
                   type: "text",
                   typo: "title",
-                  text: "出力",
+                  text: "Output",
                 },
               },
             ],
@@ -428,17 +428,17 @@ export const TextOutputNodeModel: NodeModel = {
         {
           fillType: "no-shrik",
           child: {
-            type: "input",
-            id: "message",
-            placeholder: "こんにちは！",
+            type: "text",
+            typo: "body",
+            text: "Output",
           },
         },
         {
           fillType: "no-shrik",
           child: {
-            type: "text",
-            typo: "body",
-            text: "と出力",
+            type: "input",
+            id: "message",
+            placeholder: "hello!",
           },
         },
       ],
@@ -458,12 +458,12 @@ export const TextOutputNodeModel: NodeModel = {
     {
       id: "message",
       type: "string",
-      label: "出力内容",
-      placeholder: "こんにちは",
+      label: "Output",
+      placeholder: "hello",
       localMagicVariables: [
         {
           type: "LOCAL:INPUT",
-          label: "ノードの入力",
+          label: "Node Input",
         },
       ],
     },

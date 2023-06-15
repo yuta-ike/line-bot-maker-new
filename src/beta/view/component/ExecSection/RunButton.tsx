@@ -8,8 +8,8 @@ import Dropdown from "@/beta/view/atoms/Dropdown"
 import { RunMode, useRunMode } from "@/beta/interpreter/runMode"
 
 const DEBUG_OPTIONS: { id: RunMode; label: string; icon?: IconType }[] = [
-  { id: "realtime" as const, label: "リアルタイム", icon: FiRadio },
-  { id: "ondemand" as const, label: "クリックして実行", icon: FiPlay },
+  { id: "realtime" as const, label: "Realtime", icon: FiRadio },
+  { id: "ondemand" as const, label: "Run on click", icon: FiPlay },
 ]
 
 export type RunButtonProps = {

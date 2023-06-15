@@ -127,7 +127,7 @@ const ChatPage = () => {
               <div className="h-9 w-9 shrink-0 rounded-full bg-gradient-to-tr from-pink-400 via-orange-400 to-yellow-500 shadow-orange-200" />
               <div className="max-w-[70%]">
                 <div className="text-[10px] font-bold text-slate-700">
-                  ボットラボ
+                  Bot Labo
                 </div>
                 <p
                   className={classNames(
