@@ -10,7 +10,7 @@ const LoginPage = () => {
     try {
       account.createOAuth2Session(
         "discord",
-        "http://localhost:3000/redirect",
+        "http://localhost:3000/dashboard",
         "http://localhost:3000/500",
       )
     } catch (e: any) {
