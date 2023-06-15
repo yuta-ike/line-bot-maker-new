@@ -1,13 +1,13 @@
 import { NextRequest } from "next/server"
 
 import { runInterpreter } from "@/beta/interpreter"
-import { getProgramDetails } from "@/repo/getProgramDetails"
+import { getProgram } from "@/repo/admin/getProgram"
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json()
 
   const input = body.input
-  const res = await getProgramDetails(body.id)
+  const res = await getProgram(body.id)
   const resumeId = body.resumeId
 
   const answer = await runInterpreter(
