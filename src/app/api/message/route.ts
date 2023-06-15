@@ -5,6 +5,8 @@ import { getProgram } from "@/repo/admin/getProgram"
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json()
+  console.log("===========================")
+  console.log(body)
 
   const input = body.input
   const res = await getProgram(body.id)
@@ -13,6 +15,7 @@ export const POST = async (req: NextRequest) => {
   console.log(JSON.stringify(res.program))
 
   const resumeId = body.resumeId
+  console.log("---------------------", resumeId)
 
   try {
     const answer = await runInterpreter(
