@@ -35,7 +35,7 @@ export type InterpreterResult =
     }
 
 export type Environment = {
-  environment: "emulator" | "test" | "debugger"
+  environment: "emulator" | "test" | "debugger" | "production"
 }
 
 export type InterpreterOutput = {

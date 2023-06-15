@@ -8,6 +8,8 @@ import {
   useRecoilValue,
 } from "recoil"
 import { useCallback } from "react"
+import { CheckSuccess } from "@recoiljs/refine"
+import { syncEffect } from "recoil-sync"
 
 import { edgeState } from "../atoms/edge"
 
@@ -22,6 +24,21 @@ export type ProgramNode = {
 const _nodeState = atomFamily<ProgramNode, string>({
   key: "atom/_node",
   default: undefined,
+  effects: (nodeId) => [
+    syncEffect({
+      storeKey: "nodeState",
+      refine: (value): CheckSuccess<ProgramNode> => {
+        console.log(value)
+        return {
+          // @ts-ignore
+          value,
+          type: "success",
+          warnings: [],
+        }
+      },
+      read: ({ read }) => read(nodeId),
+    }),
+  ],
 })
 
 export const nodeState = selectorFamily<ProgramNode, string>({
@@ -51,6 +68,20 @@ export const nodeState = selectorFamily<ProgramNode, string>({
 export const nodeIdsState = atom<Set<string>>({
   key: "atom/nodeIds",
   default: new Set(),
+  effects: [
+    syncEffect({
+      storeKey: "nodeIdsState",
+      refine: (value): CheckSuccess<Set<string>> => {
+        console.log(value)
+        return {
+          // @ts-ignore
+          value,
+          type: "success",
+          warnings: [],
+        }
+      },
+    }),
+  ],
 })
 
 export const nodesState = selector<ProgramNode[]>({

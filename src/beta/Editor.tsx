@@ -10,6 +10,7 @@ import Ground from "@/beta/components/Ground/Ground"
 import TmpEdgeLine from "@/beta/components/EdgeLine/TmpEdgeLine"
 import CaptureUnselectEvent from "@/beta/services/select/CaptureUnselectEvent"
 import SidePane from "@/beta/components/SidePane/SidePane"
+import { ProgramDetailSchema } from "@/repo/type"
 
 import CanvasControl from "./components/CanvasControl/CanvasControl"
 import SelectedAreaRect from "./components/Ground/SelectedAreaRect/SelectedAreaRect"
@@ -19,11 +20,18 @@ import EditorHeader from "./components/EditorHeader/EditorHeader"
 import { useIsOpenEmulator } from "./components/Ground/emulator"
 import SidePanel from "./components/SidePanel/SidePanel"
 
-const Editor = () => {
+export type EditorProps = {
+  initProgram: ProgramDetailSchema
+}
+
+const Editor = ({ initProgram }: EditorProps) => {
   const nodeIds = useNodeIds()
   const edgeIds = useEdgeIds()
 
   const [isOpenEmulator] = useIsOpenEmulator()
+
+  console.log("===================")
+  console.log(initProgram)
 
   return (
     <>
@@ -49,7 +57,10 @@ const Editor = () => {
         <CanvasControl />
       </Ground>
       <SidePanel />
-      <EditorHeader />
+      <EditorHeader
+        initTitle={initProgram.title}
+        initIsPublic={initProgram.isPublic}
+      />
 
       {/* Event Capture */}
       <CaptureUnselectEvent />

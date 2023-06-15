@@ -7,6 +7,8 @@ import {
   useRecoilCallback,
   useRecoilValue,
 } from "recoil"
+import { syncEffect } from "recoil-sync"
+import { CheckSuccess } from "@recoiljs/refine"
 
 import { DataType } from "@/beta/models/NodeModel"
 import { genId } from "@/utils/genId"
@@ -32,11 +34,40 @@ export type ProgramEdge = {
 const _edgeState = atomFamily<ProgramEdge, string>({
   key: "atom/edge",
   default: undefined,
+  effects: (nodeId) => [
+    syncEffect({
+      storeKey: "edgeState",
+      refine: (value): CheckSuccess<ProgramEdge> => {
+        console.log(value)
+        return {
+          // @ts-ignore
+          value,
+          type: "success",
+          warnings: [],
+        }
+      },
+      read: ({ read }) => read(nodeId),
+    }),
+  ],
 })
 
 export const edgeIdsState = atom<Set<string>>({
   key: "atom/edgeIds",
   default: new Set(),
+  effects: [
+    syncEffect({
+      storeKey: "edgeIdsState",
+      refine: (value): CheckSuccess<Set<string>> => {
+        console.log(value)
+        return {
+          // @ts-ignore
+          value,
+          type: "success",
+          warnings: [],
+        }
+      },
+    }),
+  ],
 })
 
 export const edgeState = selectorFamily<ProgramEdge, string>({

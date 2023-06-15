@@ -3,16 +3,18 @@ import React from "react"
 export type EditableTextProps = {
   value: string
   onChange: (value: string) => void
+  onBlur: () => void
   className?: string
 }
 
 const EditableText: React.FC<EditableTextProps> = ({
   value,
   onChange,
+  onBlur,
   className,
 }) => {
   return (
-    <div className="relative px-2 py-1 transition-all border border-transparent rounded-lg group focus-within:border-slate-400 focus-within:px-4">
+    <div className="group relative rounded-lg border border-transparent px-2 py-1 transition-all focus-within:border-slate-400 focus-within:px-4">
       <div className="relative shrink-0">
         <div>{value}</div>
         <input
@@ -20,9 +22,10 @@ const EditableText: React.FC<EditableTextProps> = ({
           className="absolute inset-0 focus:outline-none"
           value={value}
           onChange={(e) => onChange(e.target.value)}
+          onBlur={onBlur}
         />
       </div>
-      <div className="absolute px-2 py-1 ml-2 text-xs font-bold -translate-y-1/2 rounded-lg opacity-0 left-full top-1/2 bg-slate-100 text-slate-500 group-focus-within:block group-focus-within:opacity-100">
+      <div className="absolute left-full top-1/2 ml-2 -translate-y-1/2 rounded-lg bg-slate-100 px-2 py-1 text-xs font-bold text-slate-500 opacity-0 group-focus-within:block group-focus-within:opacity-100">
         Enter
       </div>
     </div>

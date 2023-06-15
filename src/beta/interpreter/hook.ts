@@ -6,6 +6,8 @@ import {
   useRecoilValue,
 } from "recoil"
 import { useMemo } from "react"
+import { syncEffect } from "recoil-sync"
+import { CheckSuccess } from "@recoiljs/refine"
 
 import {
   Environment,
@@ -25,6 +27,20 @@ import InterpreterError from "./error"
 export const simulateInputState = atom<string>({
   key: "atoms/_simulateInput",
   default: "",
+  effects: [
+    syncEffect({
+      storeKey: "simulatorInputState",
+      refine: (value): CheckSuccess<string> => {
+        console.log(value)
+        return {
+          // @ts-ignore
+          value,
+          type: "success",
+          warnings: [],
+        }
+      },
+    }),
+  ],
 })
 
 const _simulateResultState = atom<InterpreterOutput | null>({

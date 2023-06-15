@@ -1,15 +1,18 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import { getProgram } from "@/repo/admin/getProgram"
-
 import { checkSecurity } from "./_logic/checkSecurity"
 
 export const POST = async (request: NextRequest) => {
   const json = await checkSecurity(request)
 
+  console.log(json)
+
   const ID = "urynar98"
 
-  const data = await getProgram(ID)
+  // const data = await getProgram(ID)
+  // const program = data.program
+
+  // runInterpreter()
 
   // PING
   if (json.type === 1) {
@@ -22,9 +25,6 @@ export const POST = async (request: NextRequest) => {
       },
     )
   }
-
-  console.log(ID)
-  console.log(data)
 
   return NextResponse.json({
     type: 4,

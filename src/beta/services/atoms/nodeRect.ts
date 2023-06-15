@@ -1,4 +1,6 @@
 import { DefaultValue, atomFamily, selectorFamily } from "recoil"
+import { syncEffect } from "recoil-sync"
+import { CheckSuccess } from "@recoiljs/refine"
 
 import { originState, zoomState } from "./control"
 
@@ -15,6 +17,21 @@ export type NodeRect = {
 export const _nodeRectState = atomFamily<NodeRect, string>({
   key: "atom/node-rect",
   default: undefined,
+  effects: (nodeId) => [
+    syncEffect({
+      storeKey: "nodeRectState",
+      refine: (value): CheckSuccess<NodeRect> => {
+        console.log(value)
+        return {
+          // @ts-ignore
+          value,
+          type: "success",
+          warnings: [],
+        }
+      },
+      read: ({ read }) => read(nodeId),
+    }),
+  ],
 })
 
 export const nodeRectState = selectorFamily<NodeRect, string>({

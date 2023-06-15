@@ -7,14 +7,22 @@ import { useParams } from "next/navigation"
 import { useIsDragging } from "@/beta/services/move/isDragging"
 import Tooltip from "@/beta/view/atoms/Tooltop"
 import EditableText from "@/beta/view/component/EditableText"
+import { saveProgramTitle } from "@/repo/saveProgramTitle"
 
 import { useSaveEditorSnapshot } from "./useSaveEditorSnapshot"
+import { useUpdatePublication } from "./useUpdatePublication"
 
 export type EditorHeaderProps = {
+  initTitle: string
+  initIsPublic: boolean
   className?: string
 }
 
-const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
+const EditorHeader: React.FC<EditorHeaderProps> = ({
+  initTitle,
+  initIsPublic,
+  className,
+}) => {
   const params = useParams() as { workId: string }
   const workId = params.workId
 
@@ -25,7 +33,30 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
   const { trigger: saveEditorSnapshot, isMutating } =
     useSaveEditorSnapshot(workId)
 
-  const [title, setTitle] = useState("天気予報プログラム")
+  const [title, setTitle] = useState(initTitle)
+  const [isPublic, setPublic] = useState(initIsPublic)
+
+  const handleSubmit = () => {
+    saveProgramTitle({ id: workId, title })
+  }
+
+  const { trigger: updatePublication, isMutating: isMutatingPublication } =
+    useUpdatePublication(workId)
+
+  const handlePublic = async () => {
+    if (isPublic) {
+      await updatePublication(false)
+      setPublic(false)
+    } else {
+      const ok = window.confirm(
+        "公開すると、作品ページから他の人が見れるようになります。公開しますか？",
+      )
+      if (ok) {
+        await updatePublication(true)
+        setPublic(true)
+      }
+    }
+  }
 
   return (
     <header
@@ -47,10 +78,16 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
           <FiHome strokeWidth={2.5} />
         </Link>
       </Tooltip>
-      <h1 className="flex items-center space-x-2 place-self-center font-bold text-slate-600">
+      <form
+        className="flex items-center space-x-2 place-self-center font-bold text-slate-600"
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSubmit()
+        }}
+      >
         <span className="mr-2 text-lg">🌤️ </span>
-        <EditableText value={title} onChange={setTitle} />
-      </h1>
+        <EditableText value={title} onChange={setTitle} onBlur={handleSubmit} />
+      </form>
       <div className="flex items-center place-self-end">
         <button
           onClick={() => saveEditorSnapshot()}
@@ -84,8 +121,12 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({ className }) => {
             <FiShare strokeWidth={2.5} />
           </button>
         </Tooltip>
-        <button className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5">
-          公開
+        <button
+          onClick={handlePublic}
+          disabled={isMutatingPublication}
+          className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
+        >
+          {isPublic ? "公開停止" : "公開"}
         </button>
       </div>
     </header>

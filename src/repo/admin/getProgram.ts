@@ -13,29 +13,11 @@ if (APP_WRITE_API_KEY == null) {
 }
 
 export const getProgram = async (id: string) => {
-  // console.log(
-  //   `https://cloud.appwrite.io/v1/databases/${DATABASE_ID}/collections/${collections.programEditor}/documents/${id}`,
-  // )
-  // const res = await axios.get(
-  //   `https://cloud.appwrite.io/v1/databases/${DATABASE_ID}/collections/${collections.programEditor}/documents/${id}`,
-  //   {
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "X-Appwrite-Response-Format": "1.0.0",
-  //       "X-Appwrite-Project": APPWRITE_PRJECT_ID,
-  //       "X-Appwrite-Key": APP_WRITE_API_KEY,
-  //     },
-  //     timeout: 10000,
-  //   },
-  // )
-  // const json = await res.json()
-
   const doc = await adminDatabase.getDocument(
     DATABASE_ID,
     collections.programEditor,
     id,
   )
-  // const doc = res.data
   const _doc = doc as any
 
   return {

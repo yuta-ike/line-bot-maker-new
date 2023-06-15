@@ -30,7 +30,7 @@ export const getProgram = async (id: string) => {
 
   return {
     id: doc.$id,
-    title: "Unknown",
+    title: doc["title"] as string,
     createdBy: {
       id: doc["created_by"] as string,
       name: doc["created_by_name"] as string,

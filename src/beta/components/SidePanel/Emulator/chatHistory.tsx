@@ -1,5 +1,7 @@
 import { useCallback } from "react"
 import { atom, useRecoilState } from "recoil"
+import { syncEffect } from "recoil-sync"
+import { CheckSuccess } from "@recoiljs/refine"
 
 export type ChatItem = {
   sender: "user" | "bot"
@@ -11,6 +13,20 @@ export type ChatItem = {
 export const chatHistoryState = atom<ChatItem[]>({
   key: "atom/chatHistory",
   default: [],
+  effects: [
+    syncEffect({
+      storeKey: "chatHistoryState",
+      refine: (value): CheckSuccess<ChatItem[]> => {
+        console.log(value)
+        return {
+          // @ts-ignore
+          value,
+          type: "success",
+          warnings: [],
+        }
+      },
+    }),
+  ],
 })
 
 export const useChatHistory = () => {

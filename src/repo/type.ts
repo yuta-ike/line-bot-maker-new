@@ -1,3 +1,7 @@
+import { ChatItem } from "@/beta/components/SidePanel/Emulator/chatHistory"
+import { BlockEdge } from "@/beta/services/selector/blockEdge"
+import { BlockNode } from "@/beta/services/selector/blockNode"
+
 export type ProgramSchema = {
   id: string
   title: string
@@ -10,4 +14,15 @@ export type ProgramSchema = {
   isPublic: boolean
   createdAt: string
   updatedAt: string
+}
+
+export type ProgramDetailSchema = ProgramSchema & {
+  program: {
+    nodes: BlockNode[]
+    edges: BlockEdge[]
+  }
+  debugState: {
+    simulatorInput: string
+    chatHistory: ChatItem[]
+  }
 }
