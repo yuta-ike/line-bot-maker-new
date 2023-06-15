@@ -15,22 +15,17 @@ if (APP_WRITE_API_KEY == null) {
 }
 
 export const getProgram = async (id: string) => {
-  try {
-    const doc = await adminDatabase.getDocument(
-      DATABASE_ID,
-      collections.programEditor,
-      id,
-    )
-    const _doc = doc as any
-    return {
-      id: doc.$id,
-      program: JSON.parse(_doc["program"]) as {
-        nodes: BlockNode[]
-        edges: BlockEdge[]
-      },
-    }
-  } catch (e) {
-    console.log(e)
-    return e
+  const doc = await adminDatabase.getDocument(
+    DATABASE_ID,
+    collections.programEditor,
+    id,
+  )
+  const _doc = doc as any
+  return {
+    id: doc.$id,
+    program: JSON.parse(_doc["program"]) as {
+      nodes: BlockNode[]
+      edges: BlockEdge[]
+    },
   }
 }
