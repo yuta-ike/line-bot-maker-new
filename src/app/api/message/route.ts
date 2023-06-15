@@ -8,12 +8,19 @@ export const POST = async (req: NextRequest) => {
 
   const input = body.input
   const res = await getProgram(body.id)
+
+  if (res instanceof Error) {
+    return res
+  }
+
   const resumeId = body.resumeId
 
   const answer = await runInterpreter(
     input,
     {
+      //@ts-ignore
       nodes: res.program.nodes.map(({ node }) => node),
+      //@ts-ignore
       edges: res.program.edges.map((edge) => edge),
     },
     { environment: "production" },
