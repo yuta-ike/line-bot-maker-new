@@ -9,7 +9,8 @@ export const POST = async (req: NextRequest) => {
   const input = body.input
   const res = await getProgram(body.id)
 
-  console.log(JSON.stringify(res))
+  // @ts-ignore
+  console.log(JSON.stringify(res.program))
 
   const resumeId = body.resumeId
 
