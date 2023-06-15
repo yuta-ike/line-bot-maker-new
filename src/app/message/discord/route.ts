@@ -1,37 +1,15 @@
 import { NextRequest, NextResponse } from "next/server"
-import nacl from "tweetnacl"
 
-const DISCORD_PUBLIC_KEY = process.env["DISCORD_PUBLIC_KEY"]
+import { getProgram } from "@/repo/admin/getProgram"
 
-if (DISCORD_PUBLIC_KEY == null) {
-  throw new Error()
-}
+import { checkSecurity } from "./_logic/checkSecurity"
 
 export const POST = async (request: NextRequest) => {
-  console.log("POST!!!!!!!!!!!!!!!!!!!")
+  const json = await checkSecurity(request)
 
-  // SECURITY CHECK
-  const rawBody = await request.text()
+  const ID = "urynar98"
 
-  const signature = request.headers.get("x-signature-ed25519")
-  const timestamp = request.headers.get("x-signature-timestamp")
-
-  if (signature == null || timestamp == null) {
-    return new NextResponse("Invalid header", { status: 400 })
-  }
-
-  const isVerified = nacl.sign.detached.verify(
-    Buffer.from(timestamp + rawBody),
-    Buffer.from(signature, "hex"),
-    Buffer.from(DISCORD_PUBLIC_KEY, "hex"),
-  )
-
-  if (!isVerified) {
-    return new NextResponse("Invalid header", { status: 400 })
-  }
-
-  const json = JSON.parse(rawBody)
-  console.log(json?.type)
+  const data = await getProgram(ID)
 
   // PING
   if (json.type === 1) {
@@ -45,7 +23,13 @@ export const POST = async (request: NextRequest) => {
     )
   }
 
-  console.log(json)
+  console.log(ID)
+  console.log(data)
 
-  // 実装 414464863296
+  return NextResponse.json({
+    type: 4,
+    data: {
+      content: "hello world",
+    },
+  })
 }

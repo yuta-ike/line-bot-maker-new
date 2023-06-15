@@ -3,6 +3,7 @@
 import React from "react"
 
 import { getAccount } from "@/lib/appwrite/core"
+import { installGlobalCommands } from "@/utils/installDiscordCommand"
 
 const LoginPage = () => {
   const loginWithDiscord = () => {
@@ -21,6 +22,7 @@ const LoginPage = () => {
   return (
     <div>
       <button onClick={loginWithDiscord}>Login With Discord</button>
+      <button onClick={installGlobalCommands}>ATTACH</button>
     </div>
   )
 }
