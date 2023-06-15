@@ -14,9 +14,11 @@ const RedirectPage = () => {
       const account = getAccount()
       const database = getDatabase()
       const user = await account.get()
-      await database.createDocument(DATABASE_ID, collections.user, user.$id, {
-        name: user.name,
-      })
+      try {
+        await database.createDocument(DATABASE_ID, collections.user, user.$id, {
+          name: user.name,
+        })
+      } catch {}
 
       router.push("/dashboard")
     })()
