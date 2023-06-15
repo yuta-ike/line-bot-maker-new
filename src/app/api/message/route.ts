@@ -30,6 +30,8 @@ export const POST = async (req: NextRequest) => {
 
     return answer.result
   } catch (e) {
+    console.log(JSON.stringify(e))
+
     return JSON.stringify(e)
   }
 }

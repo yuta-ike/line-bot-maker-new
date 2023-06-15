@@ -112,7 +112,7 @@ const ChatPage = () => {
         className="grow space-y-4 overflow-y-scroll p-2 pb-4 pr-3"
         ref={scrollRef}
       >
-        {history.length === 0 && (
+        {chatHistory.length === 0 && (
           <div className="m-4 rounded-lg bg-slate-500/60 p-4 text-xs text-white">
             メッセージを送って、プログラムが正しく動くか確認してみよう
           </div>
