@@ -1,4 +1,4 @@
-import { NextRequest } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
 import { runInterpreter } from "@/beta/interpreter"
 import { getProgram } from "@/repo/admin/getProgram"
@@ -32,7 +32,7 @@ export const POST = async (req: NextRequest) => {
 
     console.log(JSON.stringify(answer))
 
-    return answer.result
+    return NextResponse.json(answer)
   } catch (e) {
     console.log(JSON.stringify(e))
 
