@@ -9,6 +9,7 @@ export const POST = async (req: NextRequest) => {
   const input = body.input
   const res = await getProgram(body.id)
 
+  console.log(JSON.stringify(res))
   if (res instanceof Error) {
     return res
   }
