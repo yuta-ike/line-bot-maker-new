@@ -27,3 +27,9 @@ export type ProgramDetailSchema = ProgramSchema & {
     chatHistory: ChatItem[]
   }
 }
+
+export type StatisticsItem = {
+  id: string
+  result: boolean
+  createdAt: string
+}

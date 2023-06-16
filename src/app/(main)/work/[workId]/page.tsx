@@ -17,6 +17,7 @@ import CreatorChip, { CreatorChipSkelton } from "./_component/CreatorChip"
 import MetaDataTable from "./_component/MetaDataTable"
 import InstructionSection from "./_sections/InstructionSection"
 import ExampleSection from "./_sections/ExampleSection"
+import StatisticsSection from "./_sections/StatisticsSection"
 
 export type WorkDetailPageProps = {
   params: {
@@ -133,7 +134,7 @@ const WorkDetailPage = ({ params: { workId } }: WorkDetailPageProps) => {
         </div>
 
         <div className="mx-auto mt-10 flex w-container max-w-full flex-col items-center gap-y-8 px-8 pb-8">
-          {/* <StatisticsSection /> */}
+          <StatisticsSection workId={workId} />
           <InstructionSection instruction={program?.instruction ?? ""} />
           <ExampleSection example={program?.example ?? ""} />
         </div>

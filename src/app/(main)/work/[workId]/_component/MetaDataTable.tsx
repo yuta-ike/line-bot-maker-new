@@ -34,10 +34,13 @@ const MetaDataTable = ({ program, className }: MetaDataTableProps) => {
             : format(new Date(program.updatedAt), "yyyy/M/d")}
         </TextWithSkelton>
       </div>
-      {/* <div className="flex items-center justify-between p-2">
-                <dt className="text-slate-500">使用ブロック数</dt>
-                <dd>14</dd>
-              </div> */}
+      <div className="flex items-center justify-between p-2">
+        <dt className="text-slate-500">Used blocks</dt>
+        <TextWithSkelton as="dd" className="min-w-[64px]">
+          {/* @ts-ignore */}
+          {program?.nodeCount}
+        </TextWithSkelton>
+      </div>
     </dl>
   )
 }
