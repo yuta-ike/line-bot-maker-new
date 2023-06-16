@@ -41,6 +41,7 @@ export const listPrograms = async () => {
         },
         description: doc["description"] as string,
         instruction: doc["instruction"] as string,
+        example: doc["example"] as string,
         isPublic: doc["is_public"] as boolean,
         createdAt: doc.$createdAt,
         updatedAt: doc.$updatedAt,
