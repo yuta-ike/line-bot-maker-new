@@ -16,5 +16,7 @@ export const updateStatistics = async (id: string, result: boolean) => {
         result,
       },
     )
-  } catch {}
+  } catch (e) {
+    console.log(JSON.stringify(e))
+  }
 }

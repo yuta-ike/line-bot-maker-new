@@ -3,9 +3,9 @@
 import React from "react"
 import { RecoilRoot } from "recoil"
 import { ToastContainer } from "react-toastify"
+import { SWRConfig } from "swr"
 
 import "react-toastify/dist/ReactToastify.css"
-import { SWRConfig } from "swr"
 
 export type ProvidersProps = {
   children: React.ReactNode
