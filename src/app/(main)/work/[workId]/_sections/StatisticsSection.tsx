@@ -45,7 +45,7 @@ const StatisticsSection = ({ workId, className }: StatisticsSectionProps) => {
             {statistics?.summary.total.toString() ?? null}
           </TextWithSkelton>
         </div>
-        {statistics?.summary.total !== 0 && (
+        {statistics?.summary.total !== 0 ? (
           <div className="flex items-center justify-between p-2">
             <dt className="text-slate-500">Success rate</dt>
             <dd className="flex items-center">
@@ -66,6 +66,8 @@ const StatisticsSection = ({ workId, className }: StatisticsSectionProps) => {
               </TextWithSkelton>
             </dd>
           </div>
+        ) : (
+          <div style={{ height: "36px" }} />
         )}
       </dl>
     </SectionCard>

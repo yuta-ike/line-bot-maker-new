@@ -58,8 +58,11 @@ export const WorkCardSkelton = ({ className }: WorkCardSkeltonProps) => {
         className,
       )}
     >
-      <div className="relative h-[100px] w-full bg-gradient-to-tr from-pink-400 via-orange-400 to-yellow-500">
-        <TextSkelton className="absolute bottom-1 right-1 rounded px-2 py-1 text-sm font-bold text-white opacity-50 backdrop-blur" />
+      <div className="relative h-[100px] w-full bg-slate-100">
+        <TextSkelton
+          className="absolute bottom-1 right-1 rounded px-2 py-1 text-sm font-bold text-white opacity-50 backdrop-blur"
+          width={60}
+        />
       </div>
       <div className="p-4">
         <TextSkelton className="w-full text-sm font-bold" />

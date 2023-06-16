@@ -3,6 +3,7 @@ import { Metadata } from "next"
 import CreateButton from "./_components/CreateButton"
 import DashboardTab from "./_components/DashboardTab"
 import WorkCardList from "./_components/WorkCardList"
+import UnAuthRedirect from "./_components/UnAuthRedirect"
 
 const DashboardPage = () => {
   return (
@@ -24,6 +25,9 @@ const DashboardPage = () => {
           <WorkCardList className="w-full" />
         </main>
       </div>
+
+      {/* UnAuth */}
+      <UnAuthRedirect />
     </>
   )
 }

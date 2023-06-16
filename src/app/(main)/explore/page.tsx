@@ -30,7 +30,7 @@ const ExplorePage = () => {
               gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
             }}
           >
-            {isLoading && range(10).map((i) => <WorkCardSkelton key={i} />)}
+            {isLoading && range(9).map((i) => <WorkCardSkelton key={i} />)}
             {programs?.map((program) => (
               <WorkCard key={program.id} program={program} />
             ))}
