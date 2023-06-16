@@ -11,8 +11,8 @@ const LoginPage = () => {
     try {
       account.createOAuth2Session(
         provider,
-        "http://localhost:3000/dashboard",
-        "http://localhost:3000/500",
+        "https://bot-labo.vercel.app/dashboard",
+        "https://bot-labo.vercel.app/login",
       )
     } catch (e: any) {
       console.error(`${e.message}`)
