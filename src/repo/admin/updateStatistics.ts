@@ -1,13 +1,11 @@
 import { ID } from "appwrite"
 
 import { DATABASE_ID, collections } from "@/lib/appwrite/constants"
-import { getDatabase } from "@/lib/appwrite/core"
+import { adminDatabase } from "@/lib/appwriteAdmin/core"
 
 export const updateStatistics = async (id: string, result: boolean) => {
-  const database = getDatabase()
-
   try {
-    await database.createDocument(
+    await adminDatabase.createDocument(
       DATABASE_ID,
       collections.statistics,
       ID.unique(),
