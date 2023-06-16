@@ -1,15 +1,16 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
 
 import { getAccount } from "@/lib/appwrite/core"
 
 const LoginPage = () => {
-  const loginWithDiscord = () => {
+  const login = (provider: "discord" | "slack") => {
     const account = getAccount()
     try {
       account.createOAuth2Session(
-        "discord",
+        provider,
         "http://localhost:3000/dashboard",
         "http://localhost:3000/500",
       )
@@ -19,17 +20,19 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="grid h-screen place-items-center bg-orange-400">
-      <div className="flex flex-col items-center space-y-16 rounded-xl border border-slate-200 bg-white p-16 shadow">
-        <h2 className="text-2xl font-bold">Bot Labo</h2>
-        <button
-          className="rounded-lg border border-slate-200 px-6 py-4 shadow"
-          onClick={loginWithDiscord}
-        >
-          Login With Discord
-        </button>
-      </div>
-      {/* <button onClick={installGlobalCommands}>ATTACH</button> */}
+    <div className="flex flex-col space-y-4">
+      <button
+        className="rounded-lg border border-slate-200 bg-slate-600 px-6 py-3 text-center font-bold text-white shadow transition hover:shadow-xl active:translate-y-0.5 active:shadow-none"
+        onClick={() => login("discord")}
+      >
+        Login with Discord
+      </button>
+      <Link
+        href="/login/email"
+        className="rounded-lg border border-slate-200 bg-slate-600 px-6 py-3 text-center font-bold text-white shadow transition hover:shadow-xl active:translate-y-0.5 active:shadow-none"
+      >
+        Login with Email
+      </Link>
     </div>
   )
 }

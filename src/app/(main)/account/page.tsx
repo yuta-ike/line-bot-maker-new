@@ -1,13 +1,16 @@
 "use client"
 
 import React from "react"
+import { useRouter } from "next/navigation"
 
 import { getAccount } from "@/lib/appwrite/core"
 
 const AccountPage = () => {
-  const handleLogOut = () => {
+  const router = useRouter()
+  const handleLogOut = async () => {
     const account = getAccount()
-    account.deleteSession("current")
+    await account.deleteSession("current")
+    router.push("/login")
   }
 
   return (

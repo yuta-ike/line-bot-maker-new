@@ -57,6 +57,8 @@ const Editor = ({ initProgram }: EditorProps) => {
       <EditorHeader
         initTitle={initProgram.title}
         initIsPublic={initProgram.isPublic}
+        initInstruction={initProgram.instruction}
+        initExample={initProgram.example}
       />
 
       {/* Event Capture */}

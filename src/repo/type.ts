@@ -11,6 +11,7 @@ export type ProgramSchema = {
   }
   description: string
   instruction: string
+  example: string
   isPublic: boolean
   createdAt: string
   updatedAt: string

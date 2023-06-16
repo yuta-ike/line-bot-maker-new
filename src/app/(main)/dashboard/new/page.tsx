@@ -8,6 +8,7 @@ import useSWRMutate from "swr/mutation"
 
 import SectionCard from "@/beta/view/component/SectionCard"
 import { createProgram } from "@/repo/createProgram"
+import Overlay from "@/components/Overlay"
 
 const NewProgramPage = () => {
   const router = useRouter()
@@ -23,7 +24,6 @@ const NewProgramPage = () => {
     e.preventDefault()
 
     const data: any = Object.fromEntries(new FormData(e.currentTarget))
-    console.log(data)
 
     const id = await triggerCreateProgram(data)
 
@@ -73,10 +73,7 @@ const NewProgramPage = () => {
           </Form.Submit>
         </Form.Root>
       </SectionCard>
-      <div
-        data-loading={isMutating || isPending}
-        className="pointer-events-none fixed inset-0 bg-white/30 opacity-0 backdrop-blur-sm transition-opacity data-[loading='true']:opacity-100"
-      />
+      <Overlay show={isMutating || isPending} />
     </div>
   )
 }

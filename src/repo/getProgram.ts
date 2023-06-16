@@ -36,6 +36,7 @@ export const getProgram = async (id: string) => {
       name: doc["created_by_name"] as string,
     },
     description: doc["description"] as string,
+    example: doc["example"] ?? ("" as string),
     instruction: doc["instruction"] as string,
     isPublic: doc["is_public"] as boolean,
     createdAt: doc.$createdAt,

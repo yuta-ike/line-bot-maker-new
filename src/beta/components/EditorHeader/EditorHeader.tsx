@@ -11,16 +11,21 @@ import { saveProgramTitle } from "@/repo/saveProgramTitle"
 
 import { useSaveEditorSnapshot } from "./useSaveEditorSnapshot"
 import { useUpdatePublication } from "./useUpdatePublication"
+import PublishModal from "./PublishModal"
 
 export type EditorHeaderProps = {
   initTitle: string
   initIsPublic: boolean
+  initInstruction: string
+  initExample: string
   className?: string
 }
 
 const EditorHeader: React.FC<EditorHeaderProps> = ({
   initTitle,
   initIsPublic,
+  initInstruction,
+  initExample,
   className,
 }) => {
   const params = useParams() as { workId: string }
@@ -45,63 +50,66 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
     originalTitleRef.current = title
   }
 
+  // publicshModal
+
+  const [isOpenPublishModal, setIsOpenPublishModal] = useState(false)
+
   const { trigger: updatePublication, isMutating: isMutatingPublication } =
     useUpdatePublication(workId)
 
-  const handlePublic = async () => {
+  const handlePublish = async () => {
     if (isPublic) {
-      await updatePublication(false)
+      await updatePublication({ isPublic: false })
       setPublic(false)
     } else {
-      const ok = window.confirm(
-        "Once published, the work page will be accessible to other people. Do you want to proceed with the publication?",
-      )
-      if (ok) {
-        await updatePublication(true)
-        setPublic(true)
-      }
+      setIsOpenPublishModal(true)
     }
   }
 
   return (
-    <header
-      className={classNames(
-        "fixed inset-x-0 top-0 grid w-full gap-4 border-b border-slate-200 bg-white/90 px-4 py-3",
-        isDragging && "transition hover:opacity-30",
-        className,
-      )}
-      style={{
-        gridTemplateColumns: "repeat(3, 1fr)",
-      }}
-    >
-      <Tooltip label="作品ページ">
-        <Link
-          href="/dashboard"
-          aria-label="作品ページに戻る"
-          className="grid h-9 w-[38px] place-items-center rounded-lg border-[1.5px] border-slate-200 text-slate-600 transition hover:border-slate-400 active:translate-y-0.5"
-        >
-          <FiHome strokeWidth={2.5} />
-        </Link>
-      </Tooltip>
-      <form
-        className="flex items-center space-x-2 place-self-center font-bold text-slate-600"
-        onSubmit={(e) => {
-          e.preventDefault()
-          handleSubmit()
+    <>
+      <header
+        className={classNames(
+          "fixed inset-x-0 top-0 grid w-full gap-4 border-b border-slate-200 bg-white/90 px-4 py-3",
+          isDragging && "transition hover:opacity-30",
+          className,
+        )}
+        style={{
+          gridTemplateColumns: "repeat(3, 1fr)",
         }}
       >
-        <span className="mr-2 text-lg">🌤️ </span>
-        <EditableText value={title} onChange={setTitle} onBlur={handleSubmit} />
-      </form>
-      <div className="flex items-center place-self-end">
-        <button
-          onClick={() => saveEditorSnapshot()}
-          disabled={isMutating}
-          className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
+        <Tooltip label="作品ページ">
+          <Link
+            href="/dashboard"
+            aria-label="作品ページに戻る"
+            className="grid h-9 w-[38px] place-items-center rounded-lg border-[1.5px] border-slate-200 text-slate-600 transition hover:border-slate-400 active:translate-y-0.5"
+          >
+            <FiHome strokeWidth={2.5} />
+          </Link>
+        </Tooltip>
+        <form
+          className="flex items-center space-x-2 place-self-center font-bold text-slate-600"
+          onSubmit={(e) => {
+            e.preventDefault()
+            handleSubmit()
+          }}
         >
-          save
-        </button>
-        {/* <div className="mr-4 flex items-center">
+          <span className="mr-2 text-lg">🌤️ </span>
+          <EditableText
+            value={title}
+            onChange={setTitle}
+            onBlur={handleSubmit}
+          />
+        </form>
+        <div className="flex items-center place-self-end">
+          <button
+            onClick={() => saveEditorSnapshot()}
+            disabled={isMutating}
+            className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
+          >
+            save
+          </button>
+          {/* <div className="mr-4 flex items-center">
           {Array(3)
             .fill(null)
             .map((_, i) => (
@@ -117,24 +125,37 @@ const EditorHeader: React.FC<EditorHeaderProps> = ({
           <FiPlus strokeWidth={3} />
           招待
         </button> */}
-        <hr className="!mx-4 block h-9 w-[1px] bg-slate-200" />
-        <Tooltip label="Share">
+          <hr className="!mx-4 block h-9 w-[1px] bg-slate-200" />
+          <Tooltip label="Share">
+            <button
+              className="mr-2 grid h-9 w-[38px] shrink-0 place-items-center rounded-lg bg-slate-500 text-white transition hover:bg-slate-700 hover:shadow active:translate-y-0.5 active:shadow-none"
+              aria-label="Share"
+            >
+              <FiShare strokeWidth={2.5} />
+            </button>
+          </Tooltip>
           <button
-            className="mr-2 grid h-9 w-[38px] shrink-0 place-items-center rounded-lg bg-slate-500 text-white transition hover:bg-slate-700 hover:shadow active:translate-y-0.5 active:shadow-none"
-            aria-label="Share"
+            onClick={handlePublish}
+            disabled={isMutatingPublication}
+            className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
           >
-            <FiShare strokeWidth={2.5} />
+            {isPublic ? "Make it private" : "Publish"}
           </button>
-        </Tooltip>
-        <button
-          onClick={handlePublic}
-          disabled={isMutatingPublication}
-          className="shrink-0 rounded-lg border-[1.5px] border-slate-200 px-4 py-1.5 text-sm font-bold text-slate-500 transition hover:border-slate-400 active:translate-y-0.5 disabled:opacity-50"
-        >
-          {isPublic ? "Make it private" : "Publish"}
-        </button>
-      </div>
-    </header>
+        </div>
+      </header>
+      <PublishModal
+        workId={workId}
+        initInstruction={initInstruction}
+        initExample={initExample}
+        isOpen={isOpenPublishModal}
+        onOpenChange={(_, result) => {
+          if (result) {
+            setPublic(true)
+          }
+          setIsOpenPublishModal(false)
+        }}
+      />
+    </>
   )
 }
 

@@ -2,25 +2,43 @@
 
 import classNames from "classnames"
 import React, { useRef, useState } from "react"
-import { FiImage, FiRotateCw, FiSend, FiSmile } from "react-icons/fi"
+import {
+  FiChevronLeft,
+  FiImage,
+  FiRotateCw,
+  FiSend,
+  FiSmile,
+} from "react-icons/fi"
 import TextareaAutosize from "react-textarea-autosize"
 import format from "date-fns/format"
 import axios from "axios"
 import { useParams } from "next/navigation"
+import useSWR from "swr"
+import Link from "next/link"
 
 import Tooltip from "@/beta/view/atoms/Tooltop"
 import { ChatItem } from "@/beta/components/SidePanel/Emulator/chatHistory"
+import { getProgram } from "@/repo/getProgram"
 
 const ChatPage = () => {
   const params = useParams()
   const chatId = params["chatId"] as string
+
+  const { data: program, isLoading } = useSWR(
+    [chatId, "fetchProgram"],
+    ([chatId]) => getProgram(chatId),
+  )
 
   const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const [chatHistory, setChatHistory] = useState<ChatItem[]>([])
   const resumeIdRef = useRef<string | null>(null)
 
-  const clearChat = () => setChatHistory([])
+  const clearChat = () => {
+    setChatHistory([])
+    setValue("")
+    resumeIdRef.current = null
+  }
 
   // Simulator input
   const [value, setValue] = useState("")
@@ -61,6 +79,7 @@ const ChatPage = () => {
         },
       ])
       resumeIdRef.current = res.data.resumeId
+      setValue("")
     } catch (e) {
       setChatHistory((prev) => [
         ...prev,
@@ -72,35 +91,28 @@ const ChatPage = () => {
         },
       ])
     }
-
-    // const res = await runInterpreter(
-    //   "emulator",
-    //   resumeIdRef.current ?? undefined,
-    // )
-    // await wait(150)
-    // if (res.result.type === "success") {
-    //   addChat({ sender: "bot", body: res.result.data, status: "normal" })
-    //   resumeIdRef.current = res.result.resumeId
-    // } else {
-    //   addChat({
-    //     sender: "bot",
-    //     body: res.result.error.message,
-    //     status: "error",
-    //   })
-    // }
-    // setTimeout(
-    //   () => scrollRef.current?.scrollTo({ top: 99999, behavior: "smooth" }),
-    //   10,
-    // )
-    // setValue("")
   }
 
   return (
     <div className={classNames("flex h-screen flex-col bg-[#aec4ef]")}>
-      <div className="flex shrink-0 items-center justify-start p-2">
-        <Tooltip label="履歴をクリア" side="bottom">
+      <div className="flex shrink-0 items-center justify-start p-4">
+        <Tooltip label="Work detail" side="bottom">
+          <Link
+            href={`/work/${chatId}`}
+            aria-label="Work detail"
+            className="mr-2 p-1.5 text-slate-800 hover:bg-slate-400/10"
+            onClick={() => clearChat()}
+            suppressHydrationWarning
+          >
+            <FiChevronLeft size={20} />
+          </Link>
+        </Tooltip>
+        <div className="text-lg font-bold text-slate-800">
+          {isLoading ? "Loading..." : program?.title ?? "Loading..."}
+        </div>
+        <Tooltip label="Clear history" side="bottom">
           <button
-            aria-label="履歴をクリア"
+            aria-label="Clear history"
             className="ml-auto p-1 text-slate-600 hover:text-slate-800"
             onClick={() => clearChat()}
           >
@@ -113,8 +125,8 @@ const ChatPage = () => {
         ref={scrollRef}
       >
         {chatHistory.length === 0 && (
-          <div className="m-4 rounded-lg bg-slate-500/60 p-4 text-xs text-white">
-            メッセージを送って、プログラムが正しく動くか確認してみよう
+          <div className="mx-4 rounded-lg bg-slate-500/60 p-4 text-xs text-white">
+            Send a message to verify if the program is functioning correctly.
           </div>
         )}
         {chatHistory.map(({ sender, body, createdAt, status }, i) =>
@@ -152,7 +164,7 @@ const ChatPage = () => {
             >
               <div className="flex max-w-[70%] items-end space-x-1">
                 <div className="shrink-0 text-[10px] text-slate-700">
-                  <div>既読</div>
+                  <div>Read</div>
                   <div>{format(createdAt, "H:mm")}</div>
                 </div>
                 <p className="mt-1 whitespace-pre-line rounded-2xl bg-[#8EE386] p-2 px-4 text-sm">
@@ -177,12 +189,12 @@ const ChatPage = () => {
         }}
       >
         <div className="flex w-full items-end">
-          <Tooltip label="画像">
+          <Tooltip label="Image">
             <div className="relative mr-2 shrink-0 cursor-pointer rounded p-2 hover:bg-slate-50">
               <FiImage className="text-slate-600" size={22} />
               <input
                 type="file"
-                aria-label="画像ファイルを送信する"
+                aria-label="Send a image file"
                 accept="image/*"
                 className="absolute inset-0 opacity-0"
               />
@@ -203,21 +215,20 @@ const ChatPage = () => {
                 }
               }}
             />
-            <Tooltip label="スタンプ">
+            <Tooltip label="Sticker">
               <button
                 className="absolute bottom-1 right-1 rounded-full p-2 hover:bg-slate-200"
-                aria-label="スタンプを送信"
+                aria-label="Sned sticker"
                 type="button"
-                onClick={() => console.log("SSS")}
               >
                 <FiSmile />
               </button>
             </Tooltip>
           </div>
-          <Tooltip label="送信">
+          <Tooltip label="Send">
             <button
               type="submit"
-              aria-label="送信する"
+              aria-label="Send"
               className="ml-2 shrink-0 rounded p-2 hover:bg-blue-50"
             >
               <FiSend className="text-blue-600" size={20} />
@@ -225,7 +236,7 @@ const ChatPage = () => {
           </Tooltip>
         </div>
         <p className="mr-[44px] mt-2 text-end text-xs text-slate-400">
-          <kbd>cmd</kbd> + <kbd>Enter</kbd> で送信
+          Press <kbd>cmd</kbd> + <kbd>Enter</kbd> to send
         </p>
       </form>
     </div>

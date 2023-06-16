@@ -5,6 +5,10 @@ import { updatePublication } from "@/repo/updatePublication"
 export const useUpdatePublication = (id: string) =>
   useSWRMutate(
     ["update_publication"],
-    (_, { arg: isPublic }: { arg: boolean }) =>
-      updatePublication({ id, isPublic }),
+    (
+      _,
+      {
+        arg,
+      }: { arg: { isPublic: boolean; instruction?: string; example?: string } },
+    ) => updatePublication({ id, ...arg }),
   )

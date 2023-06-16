@@ -18,19 +18,35 @@ const MenuItem: React.FC<MenuItemProps> = ({ href, children, className }) => {
   const pathname = usePathname()
   const isActive = pathname === href
 
-  return (
-    <Link
-      href={href}
-      aria-current={isActive ? "page" : undefined}
-      className={classNames(
-        "group relative text-sm font-bold text-slate-600 transition hover:text-orange-500",
-        className,
-      )}
-    >
-      {children}
-      <div className="absolute left-1/2 top-[120%] h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-orange-400 opacity-0 transition-[width] group-hover:w-[48px] group-hover:opacity-100" />
-    </Link>
-  )
+  if (isActive) {
+    return (
+      <div
+        className={classNames(
+          "group relative text-sm font-bold transition hover:text-orange-500",
+          isActive ? "text-slate-600" : "text-slate-400",
+          className,
+        )}
+      >
+        {children}
+        <div className="absolute left-1/2 top-[120%] h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-orange-400 opacity-0 transition-[width] group-hover:w-[48px] group-hover:opacity-100" />
+      </div>
+    )
+  } else {
+    return (
+      <Link
+        href={href}
+        aria-current={isActive ? "page" : undefined}
+        className={classNames(
+          "group relative text-sm font-bold transition hover:text-orange-500",
+          isActive ? "text-slate-600" : "text-slate-400",
+          className,
+        )}
+      >
+        {children}
+        <div className="absolute left-1/2 top-[120%] h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-orange-400 opacity-0 transition-[width] group-hover:w-[48px] group-hover:opacity-100" />
+      </Link>
+    )
+  }
 }
 
 export default MenuItem

@@ -14,7 +14,7 @@ const Header: React.FC = () => {
       </Link>
       <div className="ml-12 flex items-center space-x-8">
         <MenuItem href="/dashboard">My works</MenuItem>
-        <div className="text-sm font-bold text-slate-400">Explore</div>
+        <MenuItem href="/explore">Explore</MenuItem>
         <div className="text-sm font-bold text-slate-400">
           Extension Blocks 🚧
         </div>

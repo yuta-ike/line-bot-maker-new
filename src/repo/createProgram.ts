@@ -24,6 +24,7 @@ export const createProgram = async ({
     created_by_name: user.name,
     is_public: false,
     instruction: "",
+    example: "",
     description,
   })
 

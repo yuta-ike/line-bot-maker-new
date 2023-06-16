@@ -2,12 +2,14 @@ import { NextRequest, NextResponse } from "next/server"
 
 import { runInterpreter } from "@/beta/interpreter"
 import { getProgram } from "@/repo/admin/getProgram"
+import { updateStatistics } from "@/repo/admin/updateStatistics"
 
 export const POST = async (req: NextRequest) => {
   const body = await req.json()
+  const id = body.id
 
   const input = body.input
-  const res = await getProgram(body.id)
+  const res = await getProgram(id)
 
   const resumeId = body.resumeId
 
@@ -22,6 +24,8 @@ export const POST = async (req: NextRequest) => {
     { environment: "production" },
     { startNodeId: resumeId },
   )
+
+  await updateStatistics(id, answer.result.type === "success")
 
   return NextResponse.json(answer.result)
 }

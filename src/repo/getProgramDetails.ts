@@ -24,6 +24,7 @@ export const getProgramDetails = async (id: string) => {
     },
     description: doc["description"] as string,
     instruction: doc["instruction"] as string,
+    example: doc["example"] ?? ("" as string),
     isPublic: doc["is_public"] as boolean,
     program: JSON.parse(doc["program"]) as {
       nodes: BlockNode[]
